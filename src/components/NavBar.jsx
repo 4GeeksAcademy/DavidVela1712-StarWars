@@ -1,6 +1,8 @@
 import { Button, Container, Dropdown, DropdownButton, Nav, Navbar, NavDropdown } from "react-bootstrap"
+import { useNavigate } from "react-router";
 
 export const NavBar = ({favoritos, setFavoritos}) => {
+    const navegate = useNavigate();
 
     const eliminarFavorito = (uid) => {
         setFavoritos(favoritos.filter((fav) => fav.uid != uid));
@@ -10,7 +12,7 @@ export const NavBar = ({favoritos, setFavoritos}) => {
         <>
             <Navbar expand="lg" className="bg-body-tertiary">
                 <Container>
-                    <Navbar.Brand href="#home">StarWars</Navbar.Brand>
+                    <Navbar.Brand onClick={() => navegate("/")} style={{cursor: "pointer"}}>StarWars</Navbar.Brand>
                     <DropdownButton id="dropdown-basic-button" title={`Favoritos ${favoritos.length}`}>
                         {
                             favoritos.length === 0 ? (

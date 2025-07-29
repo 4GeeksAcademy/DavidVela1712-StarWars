@@ -3,7 +3,7 @@ import { Button, Card } from "react-bootstrap"
 import { getCharacter, getListaCharacters } from "./characters";
 import { useNavigate } from "react-router";
 
-export const Characters = ({favoritos, setFavoritos}) => {
+export const Characters = ({ favoritos, setFavoritos }) => {
     const [lista, setLista] = useState([]);
     const [detalles, setDetalles] = useState({});
     const navegate = useNavigate();
@@ -26,7 +26,7 @@ export const Characters = ({favoritos, setFavoritos}) => {
                             [character.uid]: datos
                         }))
                     })
-                 }, index * 300)
+                }, index * 300)
             })
         })
 
@@ -34,25 +34,25 @@ export const Characters = ({favoritos, setFavoritos}) => {
 
     return (
         <>
-        <div className="d-flex overflow-auto p-3">
             <h1>Characters</h1>
-            {
-                lista.map(e => (
-                    <Card key={e.uid} style={{ minWidth: '18rem' }}>
-                        <Card.Body>
-                            <Card.Title>{e.name}</Card.Title>
-                            <Card.Text>
-                                <span>Género: {detalles[e.uid]?.gender || ""}</span><br/>
-                                <span>Color ojos: {detalles[e.uid]?.eye_color || ""}</span><br/>
-                                <span>Color pelo: {detalles[e.uid]?.hair_color || ""}</span>
-                            </Card.Text>
-                            <Button onClick={() => navegate(`/infoCharacter/${e.uid}`)} variant="primary">Mas info</Button>
-                            <Button onClick={() => añadirFavoritos(e)}>Favoritos</Button>
-                        </Card.Body>
-                    </Card>
-                ))
-            }
-        </div>
+            <div className="d-flex overflow-auto p-3">
+                {
+                    lista.map(e => (
+                        <Card key={e.uid} style={{ minWidth: '18rem' }}>
+                            <Card.Body>
+                                <Card.Title>{e.name}</Card.Title>
+                                <Card.Text>
+                                    <span>Género: {detalles[e.uid]?.gender || ""}</span><br />
+                                    <span>Color ojos: {detalles[e.uid]?.eye_color || ""}</span><br />
+                                    <span>Color pelo: {detalles[e.uid]?.hair_color || ""}</span>
+                                </Card.Text>
+                                <Button onClick={() => navegate(`/infoCharacter/${e.uid}`)} variant="primary">Mas info</Button>
+                                <Button onClick={() => añadirFavoritos(e)}>Favoritos</Button>
+                            </Card.Body>
+                        </Card>
+                    ))
+                }
+            </div>
         </>
     )
 }

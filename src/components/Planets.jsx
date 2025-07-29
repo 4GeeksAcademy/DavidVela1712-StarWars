@@ -19,7 +19,7 @@ export const Planets = () => {
                             [planet.uid]: datos
                         }))
                     })
-                 }, index * 300)
+                }, index * 300)
             })
         })
 
@@ -27,23 +27,23 @@ export const Planets = () => {
 
     return (
         <>
-        <div className="d-flex overflow-auto p-3">
             <h1>Planets</h1>
-            {
-                lista.map(e => (
-                    <Card key={e.uid} style={{ minWidth: '18rem' }}>
-                        <Card.Body>
-                            <Card.Title>{e.name}</Card.Title>
-                            <Card.Text>
-                                <span>population: {detalles[e.uid]?.population || ""}</span><br/>
-                                <span>terrain: {detalles[e.uid]?.terrain || ""}</span>
-                            </Card.Text>
-                            <Button onClick={() => navegate(`/infoPlanet/${e.uid}`)} variant="primary">Mas info</Button>
-                        </Card.Body>
-                    </Card>
-                ))
-            }
-        </div>
+            <div className="d-flex overflow-auto p-3">
+                {
+                    lista.map(e => (
+                        <Card key={e.uid} style={{ minWidth: '18rem' }}>
+                            <Card.Body>
+                                <Card.Title>{e.name}</Card.Title>
+                                <Card.Text>
+                                    <span>population: {detalles[e.uid]?.population || ""}</span><br />
+                                    <span>terrain: {detalles[e.uid]?.terrain || ""}</span>
+                                </Card.Text>
+                                <Button onClick={() => navegate(`/infoPlanet/${e.uid}`)} variant="primary">Mas info</Button>
+                            </Card.Body>
+                        </Card>
+                    ))
+                }
+            </div>
         </>
     )
 }
