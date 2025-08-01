@@ -4,7 +4,7 @@ import { getCharacter } from "./characters";
 import { useNavigate, useParams } from "react-router";
 
 export const InfoCharacter = () => {
-    const {uid} = useParams();
+    const { uid } = useParams();
     const [character, setCharacter] = useState(null);
 
     const navegate = useNavigate();
@@ -26,11 +26,12 @@ export const InfoCharacter = () => {
     return (
         <>
             <Container className="mt-5 d-flex justify-content-center">
-                <Card style={{width: "28rem"}} className="shadow p-3">
+                <Card style={{ width: "28rem" }} className="shadow p-3">
+                    <Card.Img src={`https://github.com/breatheco-de/swapi-images/blob/master/public/images/people/${uid}.jpg?raw=true`}/>
                     <Card.Body>
                         <h1 className="text-center mb-3">{character.name}</h1>
                         <p className="text-center">Lore Ipsum</p>
-                        <hr/>
+                        <hr />
                         <ListGroup variant="flush">
                             <ListGroup.Item><strong>Nombre: </strong>{character.name}</ListGroup.Item>
                             <ListGroup.Item><strong>Cumpleaños: </strong>{character.birth_year}</ListGroup.Item>

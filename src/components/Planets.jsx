@@ -2,11 +2,13 @@ import { Button, Card } from "react-bootstrap"
 import { getListaPlanets, getPlanet } from "./planets";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { useFavorites } from "./FavoritosContext";
 
 export const Planets = () => {
     const [lista, setLista] = useState([]);
     const [detalles, setDetalles] = useState({});
     const navegate = useNavigate();
+    const { favorites, addFavorites, deleteFavorite, isFavorited } = useFavorites();
 
     useEffect(() => {
         getListaPlanets().then(listaApi => {
@@ -32,6 +34,7 @@ export const Planets = () => {
                 {
                     lista.map(e => (
                         <Card key={e.uid} style={{ minWidth: '18rem' }}>
+                            <Card.Img src={`https://github.com/breatheco-de/swapi-images/blob/master/public/images/planets/${e.uid}.jpg?raw=true`}/>
                             <Card.Body>
                                 <Card.Title>{e.name}</Card.Title>
                                 <Card.Text>
@@ -39,6 +42,13 @@ export const Planets = () => {
                                     <span>terrain: {detalles[e.uid]?.terrain || ""}</span>
                                 </Card.Text>
                                 <Button onClick={() => navegate(`/infoPlanet/${e.uid}`)} variant="primary">Mas info</Button>
+                                <Button 
+                                variant={isFavorited(e.uid, "planet") ? "danger" : "success"}
+                                onClick={
+                                    isFavorited(e.uid, "planet")
+                                        ? () => deleteFavorite(e.uid, "planet")
+                                        : () => addFavorites(e.uid, e.name, "planet")
+                                        }>Favoritos</Button>
                             </Card.Body>
                         </Card>
                     ))

@@ -1,19 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button, Card } from "react-bootstrap"
 import { getCharacter, getListaCharacters } from "./characters";
 import { useNavigate } from "react-router";
+import { FavoritosContext, useFavorites } from "./FavoritosContext";
 
 export const Characters = ({ favoritos, setFavoritos }) => {
     const [lista, setLista] = useState([]);
     const [detalles, setDetalles] = useState({});
     const navegate = useNavigate();
-
-    const añadirFavoritos = (personaje) => {
-        const existe = favoritos.find(fav => fav.uid == personaje.uid);
-        if (!existe) {
-            setFavoritos([...favoritos, personaje]);
-        }
-    }
+    const { favorites, addFavorites, deleteFavorite, isFavorited } = useFavorites();
 
     useEffect(() => {
         getListaCharacters().then(listaApi => {
@@ -39,6 +34,7 @@ export const Characters = ({ favoritos, setFavoritos }) => {
                 {
                     lista.map(e => (
                         <Card key={e.uid} style={{ minWidth: '18rem' }}>
+                            <Card.Img src={`https://github.com/breatheco-de/swapi-images/blob/master/public/images/people/${e.uid}.jpg?raw=true`} />
                             <Card.Body>
                                 <Card.Title>{e.name}</Card.Title>
                                 <Card.Text>
@@ -47,7 +43,13 @@ export const Characters = ({ favoritos, setFavoritos }) => {
                                     <span>Color pelo: {detalles[e.uid]?.hair_color || ""}</span>
                                 </Card.Text>
                                 <Button onClick={() => navegate(`/infoCharacter/${e.uid}`)} variant="primary">Mas info</Button>
-                                <Button onClick={() => añadirFavoritos(e)}>Favoritos</Button>
+                                <Button 
+                                variant={isFavorited(e.uid, "character") ? "danger" : "success"}
+                                onClick={
+                                    isFavorited(e.uid, "character")
+                                        ? () => deleteFavorite(e.uid, "character")
+                                        : () => addFavorites(e.uid, e.name, "character")
+                                        }>Favoritos</Button>
                             </Card.Body>
                         </Card>
                     ))

@@ -4,7 +4,7 @@ import { getPlanet } from "./planets";
 import { useNavigate, useParams } from "react-router";
 
 export const InfoPlanet = () => {
-    const {uid} = useParams();
+    const { uid } = useParams();
     const [planet, setPlanet] = useState(null);
 
     const navegate = useNavigate();
@@ -26,11 +26,12 @@ export const InfoPlanet = () => {
     return (
         <>
             <Container className="mt-5 d-flex justify-content-center">
-                <Card style={{width: "28rem"}} className="shadow p-3">
+                <Card style={{ width: "28rem" }} className="shadow p-3">
+                    <Card.Img src={`https://github.com/breatheco-de/swapi-images/blob/master/public/images/planets/${uid}.jpg?raw=true`}/>
                     <Card.Body>
                         <h1 className="text-center mb-3">{planet.name}</h1>
                         <p className="text-center">Lore Ipsum</p>
-                        <hr/>
+                        <hr />
                         <ListGroup variant="flush">
                             <ListGroup.Item><strong>Nombre: </strong>{planet.name}</ListGroup.Item>
                             <ListGroup.Item><strong>Clima: </strong>{planet.climate}</ListGroup.Item>
